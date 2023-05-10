@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import logo from '../assets/images/logo.png'
 import { Inter } from 'next/font/google'
 import { useState } from 'react'
 import { Configuration, OpenAIApi } from "openai";
@@ -17,7 +18,7 @@ export default function Home() {
 
   return (
     <>
-      {/* <Navbar/> */}
+      <Navbar/>
         <main className={`xl:h-screen flex  px-32 py-16 justify-between items-center ${inter.className} max-lg:flex-col max-lg:px-0 max-sm:px-0`}>
             <Lottie className='w-1/2 max-sm:w-4/5' animationData={animData} loop={true}/>
             <div className='flex flex-wrap flex-col items-center justify-between w-1/3 bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12
