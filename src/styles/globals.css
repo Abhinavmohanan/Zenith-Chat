@@ -25,3 +25,14 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+main{
+background: linear-gradient(89.71deg, #96AED2 0.27%, #75AED5 94.13%);
+}
+
+.logo{
+  position: absolute;
+  top: 0px;
+  width:  300px;
+}
