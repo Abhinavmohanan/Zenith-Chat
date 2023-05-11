@@ -1,0 +1,68 @@
+.section__1{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.46);
+    backdrop-filter: blur(7.4px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 10px;
+}
+
+.section__1{
+    gap: 2rem;
+    width: 30%;
+    height: 90%;
+}
+
+.name{
+    font-size: 23px;
+    color:rgb(34, 27, 27);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+.profile{
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+}
+
+.status,.phone{
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: rgb(34, 27, 27);
+    width: 90%;
+    padding: 10px 0;
+    font-weight: 400;
+    font-family: cursive;
+    background: rgba(132, 197, 230, 0.14);
+    border: 1px solid rgba(132, 197, 230, 0.43);
+    backdrop-filter: blur(15.4px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 10px;
+}
+
+.profile_item_heading{
+    border-right: 1px solid rgba(132, 197, 230, 0.5);
+    height: 100%;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile_item{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
