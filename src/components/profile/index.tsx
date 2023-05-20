@@ -84,7 +84,7 @@ const Profile = ({setProfileView }: propsType) => {
                     <div className={styles.profile_item_heading}>Email</div> <div className={styles.profile_item}> {user?.email}</div> <div><Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div>
                     </div>
                     <div className={styles.status}>
-                            <div className={styles.profile_item_heading}>Status</div> <div className={styles.profile_item}>  Hey I'm on Zenith , I'm the Fastest Man Alive , I'm the Flash <Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div> 
+                            <div className={styles.profile_item_heading}>Status</div> <div className={styles.profile_item}>  Hey I&apos;m on Zenith  <Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div> 
                     </div>
                 </>
     </>)
