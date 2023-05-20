@@ -7,13 +7,16 @@ import styles from './profile.module.css'
 import { FormControl, InputAdornment, OutlinedInput } from '@mui/material';
 import { AccountCircle, Close, Edit, EmojiEmotions, Search, Send } from '@mui/icons-material';
 import Input from '@mui/material/Input';
-import { Dispatch, SetStateAction, useRef } from 'react';
+import { Dispatch, SetStateAction, useContext, useRef } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
 type propsType = {
   setProfileView: Dispatch<SetStateAction<boolean>>
 }
 
 const Profile = ({setProfileView }: propsType) => {
+
+    const {user} = useContext(AuthContext);
     const blue = {
         100: '#DAECFF',
         200: '#b6daff',
@@ -73,9 +76,12 @@ const Profile = ({setProfileView }: propsType) => {
                     <Close onClick={()=>{setProfileView(false)}}
                      sx={{cursor:"pointer", color:"black",position:"absolute",top:"20px",right:"20px"}}/>
                     <Image className={styles.profile} alt='' src={profile}/>
-                    <div className={styles.name}> Barry Allen, CSI</div>
+                    <div>
+                      <div className={styles.name}>{user?.name}</div>
+                      <div className='text-black font-thin text-center'>@{user?.username}</div>
+                    </div>
                     <div className={styles.phone}>
-                    <div className={styles.profile_item_heading}>Phone</div> <div className={styles.profile_item}> +91 922312312</div> <div><Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div>
+                    <div className={styles.profile_item_heading}>Email</div> <div className={styles.profile_item}> {user?.email}</div> <div><Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div>
                     </div>
                     <div className={styles.status}>
                             <div className={styles.profile_item_heading}>Status</div> <div className={styles.profile_item}>  Hey I'm on Zenith , I'm the Fastest Man Alive , I'm the Flash <Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div> 

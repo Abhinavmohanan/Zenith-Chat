@@ -37,6 +37,24 @@ background: linear-gradient(89.71deg, #96AED2 0.27%, #75AED5 94.13%);
   width:  300px;
 }
 
+.login-transition{
+  -webkit-transition:all 0s;
+  -moz-transition:all 0s;
+  -ms-transition:all 0s;
+  -o-transition:all 0s;
+  transition:all 0s;
+  visibility: hidden;
+}
+
+.login-transition.visible{
+  -webkit-transition:all 2s;
+  -moz-transition:all 2s;
+  -ms-transition:all 2s;
+  -o-transition:all 2s;
+  transition:all 2s;
+  visibility: visible;
+}
+
 /* .MuiInputBase-input{
   width: 200px!important;
 } */

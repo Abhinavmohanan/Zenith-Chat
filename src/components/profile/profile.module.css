@@ -20,6 +20,7 @@
 }
 
 .name{
+    text-align: center;
     font-size: 23px;
     color:rgb(34, 27, 27);
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif

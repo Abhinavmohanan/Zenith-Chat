@@ -7,15 +7,18 @@ import styles from './homepage.module.css'
 import { FormControl, InputAdornment, OutlinedInput } from '@mui/material';
 import { AccountCircle, EmojiEmotions, Search, Send } from '@mui/icons-material';
 import Input from '@mui/material/Input';
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Transition } from '@headlessui/react'
 import Profile from '@/components/profile';
+import { AuthContext } from '@/context/AuthContext';
 function timeout(delay: number) {
     return new Promise( res => setTimeout(res, delay) );
 }
 
 const HomePage = () => {
+
+    const {user}= useContext(AuthContext);
     const router = useRouter()
     const [profileView,setProfileView] = useState(false);
 
@@ -76,8 +79,7 @@ const HomePage = () => {
     return (<> 
         <main className={`xl:h-screen flex flex-col  px-32 py-16 justify-center items-center max-lg:flex-col max-lg:px-0 max-sm:px-0`}>
             {/* <div className="logo"><Image src={logo} alt="" /></div> */}
-            <div className='overflow-hidden flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12
-            '>
+            <div className={'overflow-hidden flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12'}>
                 {profileView? <Transition  /*Need to fix transition*/
                 className={styles.section__1__profile}
                 enter="transition-opacity duration-75"
@@ -113,7 +115,7 @@ const HomePage = () => {
                                     <div className={styles.chat_profile}>
                                         <Image className={styles.profile} alt='' src={profile}/>
                                         <div className={styles.chat__desc}>
-                                            <div className={styles.chat__heading}>Name</div>
+                                            <div className={styles.chat__heading}>{user?.username}</div>
                                             <div className={styles.chat__msg}>Latest Message</div>
                                         </div>
                                     </div>
