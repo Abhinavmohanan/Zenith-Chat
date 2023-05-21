@@ -1,3 +1,5 @@
+$search_size: 300px;
+
 .section__1__profile{
   gap: 2rem;
   width: 30%;
@@ -14,6 +16,72 @@
   /* Note: backdrop-filter has minimal browser support */
 
   border-radius: 10px;
+}
+
+.search_list{
+ z-index: 2;
+  display: flex;
+  padding: 10px 0;
+  gap:0.5rem;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  border-radius: 10px;
+  top: 82px;
+  width: 100%;
+  height: fit-content;
+  max-height: $search_size;
+  overflow-y: scroll;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  color: #8cbada;
+  font-weight: 200;
+  font-family: 'Times New Roman', Times, serif;
+
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+    margin:5px 0;
+    height: 90%;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(132, 197, 230, 0.5);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(132, 197, 230, 0.8);
+  }
+}
+
+.search_list_empty{
+  height: $search_size;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search_list_item{
+  z-index: 5;
+    cursor: pointer;
+    display: flex;
+    width: 95%;
+    height: 22%;
+    padding: 0.3rem 1rem;
+    flex-shrink: 0;
+    background: rgba(132, 197, 230, 0.14);
+    border: 1px solid rgba(132, 197, 230, 0.5);
+    backdrop-filter: blur(15.4px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 10px;
 }
 
 .section__1{
@@ -45,6 +113,7 @@
 
 
 .profile_bar{
+    z-index: 999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -83,6 +152,7 @@
 }
 
 .chat_profiles_container{
+  z-index: 1;
     height:82%;
 }
 
@@ -131,7 +201,7 @@
     padding-left: 10px;
     width: 90%;
     height: 20%;
-    flex: 1 0 auto;
+    flex-shrink: 0;
     gap: 0.3rem;
     background: rgba(132, 197, 230, 0.14);
     border: 1px solid rgba(132, 197, 230, 0.5);

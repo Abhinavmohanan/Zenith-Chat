@@ -1,33 +1,26 @@
-import Image from 'next/image'
-import logo from '../assets/images/logo.png'
 import { Inter } from 'next/font/google'
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import Navbar from '@/components/Navbar/Navbar';
 import Lottie from 'lottie-react'
 import animData from '../assets/animations/welcome.json';
-import { axiosPrivate } from '@/utils/axiosPrivate';
-import { headers } from 'next/dist/client/components/headers';
+import {axiosPublic } from '@/utils/axiosPrivate';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { sendErrorToast, sendPromiseToast } from '@/utils/toast'
 import { AuthContext } from '@/context/AuthContext'
 
-import { userType } from '@/types/userType';
-
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const [register, setRegister] = useState(false)
-
   const {user,setUser} = useContext(AuthContext);
-
   const name = useRef<HTMLInputElement>(null)
   const username = useRef<HTMLInputElement>(null)
   const password = useRef<HTMLInputElement>(null)
   const email = useRef<HTMLInputElement>(null)
   const loginpassword = useRef<HTMLInputElement>(null)
   const loginemail = useRef<HTMLInputElement>(null)
+  
 
   const router = useRouter()
   async function handleLoginSubmit() {
@@ -36,7 +29,7 @@ export default function Home() {
       return
     }
 
-    const promise = axiosPrivate.post('/login',{
+    const promise = axiosPublic.post('/login',{
       email:loginemail.current?.value,
       password:loginpassword.current?.value,
     },
@@ -54,7 +47,7 @@ export default function Home() {
       return
     }
 
-    const promise = axiosPrivate.post('/register',{
+    const promise = axiosPublic.post('/register',{
       email:email.current?.value,
       password:password.current?.value,
       name:name.current?.value,
@@ -80,11 +73,10 @@ export default function Home() {
             pauseOnHover
             theme="light"
             />
-      <div className={`xl:h-screen flex  px-32 py-16 justify-between items-center  ${inter.className} max-lg:flex-col max-lg:px-0 max-sm:px-0`}>
+      <div className={`relative flex-wrap xl:h-screen flex  px-32 py-16 justify-between items-center  ${inter.className} max-lg:flex-col max-lg:px-0 max-sm:px-0`}>
         <Lottie className='w-1/2 max-sm:w-4/5' animationData={animData} loop={true} />
         {user? "Logged in":<>
-        <div className='relative w-full h-full'>
-          <div className={'absolute right-0 login-transition flex gap-5 flex-col items-center justify-center h-5/6  w-1/3 bg-gray-100 rounded-2xl backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12 ' + (!register? ' visible':'')}>
+          <div id="login-form" className={'login-transition flex gap-5 flex-col items-center justify-center bg-gray-100 rounded-2xl backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12 ' + (!register? ' visible':'')}>
             <div className=' text-black'>Login</div>
             <form onSubmit={(e) => console.log("Submitted Form" + e)} className='flex flex-col gap-7 w-full p-10'>
               <div>
@@ -102,7 +94,7 @@ export default function Home() {
               setRegister(!register)
             }}> Do not have an account yet ? Register now</div>
           </div>
-          <div className={'absolute right-0 login-transition flex gap-5 flex-col items-center justify-center h-5/6  w-1/3 bg-gray-100 rounded-2xl backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12 ' + (register? ' visible':'')}>
+          <div id='register-form' className={'login-transition flex gap-5 flex-col items-center justify-center bg-gray-100 rounded-2xl backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12 ' + (register? ' visible':'')}>
             <div className='pt-5 text-black'>Register</div>
             <form onSubmit={(e) => console.log("Submitted Form" + e)} className='flex flex-col gap-7 w-full p-10'>
               <div className='flex justify-between'>
@@ -129,7 +121,6 @@ export default function Home() {
               setRegister(!register)
             }}> Already an account ? Login now</div>
           </div>
-        </div>
         </>}
       </div>
     </main>
