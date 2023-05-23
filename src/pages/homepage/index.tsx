@@ -415,8 +415,8 @@ const HomePage = () => {
                             <Image className={styles.profile_chat} alt='' src={profile} />
                             {selectedRoom.name?? selectedRoom.to.name}
                         </div>
-                        <div>
-                            {closeMobile? <Close onClick={()=>{setCloseMobile(false)}}/>:<></>}
+                        <div  className={styles.close_chat}>
+                            <Close onClick={()=>{setCloseMobile(false)}}/>
                         </div>
                     </div>
                     <div className={styles.chat_body}>

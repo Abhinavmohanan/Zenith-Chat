@@ -8,7 +8,7 @@ const useSocket = ()=>{  //ISSUE WHEN USER ALONE UPDATES ACCESS TOKEN IS NOT UPD
   const [socket,setSocket] = useState<Socket | null>(null)
 
   useEffect(() => {
-      const socketIo = io("http://localhost:4000/chat",{autoConnect:false,auth:{accessToken:user?.accessToken},});
+      const socketIo = io(`${process.env.NEXT_PUBLIC_BACKEND_URL}/chat`,{autoConnect:false,auth:{accessToken:user?.accessToken},});
       socketIo.connect();
       setSocket(socketIo)
 

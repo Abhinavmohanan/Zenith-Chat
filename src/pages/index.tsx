@@ -75,7 +75,9 @@ export default function Home() {
             />
       <div className={`relative flex-wrap xl:h-screen flex  px-32 py-16 justify-between items-center  ${inter.className} max-lg:flex-col max-lg:px-0 max-sm:px-0`}>
         <Lottie className='w-1/2 max-sm:w-4/5' animationData={animData} loop={true} />
-        {user? <><button className=''>View dashboard</button></>:<>
+        {user? <><button onClick={()=>{
+          router.push('/homepage')
+        }} className=''>View dashboard</button></>:<>
           <div id="login-form" className={'login-transition flex gap-5 flex-col items-center justify-center bg-gray-100 rounded-2xl backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12 ' + (!register? ' visible':'')}>
             <div className=' text-black'>Login</div>
             <form onSubmit={(e) => console.log("Submitted Form" + e)} className='flex flex-col gap-7 w-full p-10'>

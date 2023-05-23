@@ -379,6 +379,11 @@ $search_size: 300px;
 }
 
 
+.close_chat{
+  display: none;
+}
+
+
 
 @media(max-width:1024px){
   .section__1{
@@ -395,6 +400,10 @@ $search_size: 300px;
 
   .section__1__profile{
     width: 90%;
+  }
+
+  .close_chat{
+    display: unset;
   }
 }
 
