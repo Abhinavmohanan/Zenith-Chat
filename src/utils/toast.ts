@@ -22,6 +22,9 @@ export const sendErrorToast = (msg: String)=>{
                 error: {
                   render({data} : any){
                     // When the promise reject, data will contains the error
+                    if(!data.response){
+                      return error
+                    }
                     return data.response.data.message;
                   }
                 }

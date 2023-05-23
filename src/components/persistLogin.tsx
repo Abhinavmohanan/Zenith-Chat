@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect } from 'react'
 import useRefresh from '@/hooks/useRefresh';
+import { CircularProgress } from '@mui/material';
 
 type ProtectedType = {
   children: ReactNode;
@@ -19,7 +20,7 @@ const PersistLogin =  ({children} : ProtectedType) => {
   },[])
 
   if(loading){
-    return <div>Loading...</div>
+    return <div className='flex gap-5 text-lg text-cyan-800 justify-center items-center h-screen'>Loading <CircularProgress/></div>
   }
 
   return (

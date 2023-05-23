@@ -4,7 +4,7 @@ import profile from '../../assets/images/profile.jpg'
 import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { styled } from '@mui/system';
 import styles from './homepage.module.scss'
-import { FormControl, InputAdornment, OutlinedInput } from '@mui/material';
+import { CircularProgress, FormControl, InputAdornment, OutlinedInput } from '@mui/material';
 import {  Close, EmojiEmotions, Search, Send } from '@mui/icons-material';
 import Input from '@mui/material/Input';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -309,7 +309,7 @@ const HomePage = () => {
             />
         <main className={`xl:h-screen flex flex-col  px-32 py-16 justify-center items-center max-lg:flex-col max-lg:px-0 max-sm:px-0 max-xl:px-0 max-xl:py-5`}>
             {/* <div className="logo"><Image src={logo} alt="" /></div> */}
-            {!isConnected?<>Connection Error Trying to Reconnect....</>:<div className={'overflow-hidden flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12'}>
+            {!isConnected?<div className='flex gap-5 text-lg text-cyan-800'>Network Error, Trying to reconnect <CircularProgress/></div>:<div className={'overflow-hidden flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12'}>
                 {profileView ? <Transition  /*Need to fix transition*/
                     className={styles.section__1__profile}
                     enter="transition-opacity duration-75"

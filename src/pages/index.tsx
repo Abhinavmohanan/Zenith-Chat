@@ -93,7 +93,7 @@ export default function Home() {
         pauseOnHover
         theme="light"
       />
-      <div className={`relative xl:h-screen flex justify-around items-center  ${inter.className} max-md:flex-col max-lg::px-0 max-sm:px-0`}>
+      <div className={`relative md:h-screen flex justify-around items-center  ${inter.className} max-md:flex-col max-lg::px-0 max-sm:px-0`}>
         <Lottie className='w-1/2 max-sm:w-3/5' animationData={animData} loop={true} />
         {user ? <><button onClick={() => {
           router.push('/homepage')
