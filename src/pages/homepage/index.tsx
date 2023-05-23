@@ -5,22 +5,19 @@ import TextareaAutosize from '@mui/base/TextareaAutosize';
 import { styled } from '@mui/system';
 import styles from './homepage.module.scss'
 import { FormControl, InputAdornment, OutlinedInput } from '@mui/material';
-import { AccountCircle, Close, EmojiEmotions, Search, Send } from '@mui/icons-material';
+import {  Close, EmojiEmotions, Search, Send } from '@mui/icons-material';
 import Input from '@mui/material/Input';
 import { useContext, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
 import { Transition } from '@headlessui/react'
 import Profile from '@/components/profile';
 import { AuthContext } from '@/context/AuthContext';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
 import { RoomType, messageType, searchUserType } from '@/types/userType';
 import useSocket from '@/hooks/useSocket';
-import { Socket, io } from 'socket.io-client';
 import useRefresh from '@/hooks/useRefresh';
-import { DefaultEventsMap } from '@socket.io/component-emitter';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { sendErrorToast, sendPromiseToast } from '@/utils/toast'
+import { sendErrorToast} from '@/utils/toast'
 function timeout(delay: number) {
     return new Promise(res => setTimeout(res, delay));
 }
