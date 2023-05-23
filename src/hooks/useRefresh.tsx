@@ -18,8 +18,8 @@ const useRefresh = () => {
             }
         }
         catch(err: any){
+            console.log("Unauthorized")
             console.log(err)
-            console.log("Unauthorized" + err.response.status)
             setUser(null);
             return;
         }
