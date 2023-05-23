@@ -12,20 +12,16 @@ const useRefresh = () => {
         let response;
         try{
             response = await axiosPublic.post('/refreshToken',{ headers: {'Content-Type': 'application/json' }},{withCredentials:true})
-            if(response.status === 401){
-                console.log("Unauthorized")
-                setUser(null);
-                return;
-            }
             if(response.status === 200){
                 setUser(response.data.user);
+                return response.data.user.accessToken;
             }
-
-            return response.data.user.accessToken;
         }
-        catch(err){
+        catch(err: any){
             console.log(err)
-            return
+            console.log("Unauthorized" + err.response.status)
+            setUser(null);
+            return;
         }
     }
 

@@ -9,14 +9,31 @@ import { AccountCircle, Close, Edit, EmojiEmotions, Search, Send } from '@mui/ic
 import Input from '@mui/material/Input';
 import { Dispatch, SetStateAction, useContext, useRef } from 'react';
 import { AuthContext } from '@/context/AuthContext';
+import useAxiosPrivate from '@/hooks/useAxiosPrivate';
+import { useRouter } from 'next/router';
 
 type propsType = {
   setProfileView: Dispatch<SetStateAction<boolean>>
 }
 
 const Profile = ({setProfileView }: propsType) => {
+    const axiosJWT = useAxiosPrivate();
+    const {user,setUser} = useContext(AuthContext);
+    const router = useRouter();
 
-    const {user} = useContext(AuthContext);
+    
+    const handleLogout = async() => {
+      try{
+        const response = await axiosJWT.post('/logout',{},{withCredentials:true})
+        if(response.status === 200){
+          setUser(null);
+          router.push('/')
+        }
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
     const blue = {
         100: '#DAECFF',
         200: '#b6daff',
@@ -81,10 +98,13 @@ const Profile = ({setProfileView }: propsType) => {
                       <div className='text-black font-thin text-center'>@{user?.username}</div>
                     </div>
                     <div className={styles.phone}>
-                    <div className={styles.profile_item_heading}>Email</div> <div className={styles.profile_item}> {user?.email}</div> <div><Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div>
+                          <div className={styles.profile_item_heading}>Email</div> <div className={styles.profile_item}> {user?.email}</div> <div><Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div>
                     </div>
                     <div className={styles.status}>
-                            <div className={styles.profile_item_heading}>Status</div> <div className={styles.profile_item}>  Hey I&apos;m on Zenith  <Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div> 
+                    <div className={styles.profile_item_heading}>Status</div> <div className={styles.profile_item}> Hey I&apos;m on Zenith</div> <div><Edit sx={{marginRight:"10px",fontSize:"19px",color:"black"}}/></div>
+                    </div>
+                    <div>
+                      <button onClick={handleLogout} className={styles.logout_button}>Logout</button>
                     </div>
                 </>
     </>)

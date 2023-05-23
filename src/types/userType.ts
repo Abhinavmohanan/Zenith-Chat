@@ -20,3 +20,13 @@ export interface ClientToServerEvents {
   hello: () => void;
 }
 
+export type messageType = {
+  message:String,
+  sender:String | undefined, //username
+  receiver:String  | undefined ,//username
+  date:Date,
+  roomid: String,
+}
+
+export type RoomType = {_id:String,id:String,name:String | null,type:String,to:{name:String,username:String},messages:[messageType]}
+

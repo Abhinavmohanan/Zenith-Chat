@@ -113,7 +113,8 @@ $search_size: 300px;
 
 
 .profile_bar{
-    z-index: 999;
+  padding: 0 2rem;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -127,6 +128,11 @@ $search_size: 300px;
     /* Note: backdrop-filter has minimal browser support */
     
     border-radius: 10px;
+}
+
+.profile__search{
+  flex-grow: 1;
+  margin-left: 0.5rem;
 }
 
 
@@ -224,6 +230,15 @@ $search_size: 300px;
     color: #090101;
 }
 
+.chat_empty{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #2a5e96;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .chat__msg{
     color: #5495E0;
 }
@@ -232,6 +247,7 @@ $search_size: 300px;
 
 .chat_header{
     display: flex;
+    justify-content: space-between;
     gap: 1rem;
     align-items: center;
     width: 90%;
@@ -240,6 +256,13 @@ $search_size: 300px;
     font-weight: 500;
     height: 8%;
     margin-bottom: 3%;
+}
+
+.chat_header_heading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .profile_chat{
@@ -318,7 +341,6 @@ $search_size: 300px;
 
 
 .chat_message{
-    align-self: flex-end;
     color: #090101;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     width: fit-content;
@@ -328,6 +350,21 @@ $search_size: 300px;
     border: 1px solid rgba(44, 153, 221, 0.1);
     border-radius: 6px;
 }
+
+.chat_message_blank{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  width: 100%;
+  height: 100%;
+  color: #5a86d2;
+  padding: 7px;
+  font-size: 18px; 
+  border: 1px solid rgba(44, 153, 221, 0.1);
+  border-radius: 6px;
+}
+
 
 .chat_send{
     display: flex;
@@ -343,5 +380,21 @@ $search_size: 300px;
 
 
 
+@media(max-width:1024px){
+  .section__1{
+    width: 90%;
+  }
+  .section__2{
+    display: none;
+    width: 100%;
+    height: 100%;
+    background: rgba(133, 202, 223, 0.7);
+    position: absolute;
+    z-index: 10;
+  }
 
+  .section__1__profile{
+    width: 90%;
+  }
+}
 

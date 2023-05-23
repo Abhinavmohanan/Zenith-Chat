@@ -67,3 +67,25 @@
     align-items: center;
     justify-content: center;
 }
+
+.logout_button{
+    border: 2px solid rgb(209, 156, 156);
+    background: rgba(255, 81, 81, 0.8);
+    width: 100px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 20px;
+}
+
+
+.logout_button:hover{
+    background: rgb(148, 22, 22,0.8);
+}
+
+
+@media (max-width:1024px) {
+    .section__1{
+        width: 90%;
+    }
+}
