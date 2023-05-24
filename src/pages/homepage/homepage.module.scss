@@ -27,9 +27,9 @@ $search_size: 300px;
   align-items: center;
   position: absolute;
   border-radius: 10px;
-  top: 82px;
+  bottom: -305px;
   width: 100%;
-  height: fit-content;
+  height: 300px;
   max-height: $search_size;
   overflow-y: scroll;
   background: rgba(255, 255, 255, 0.88);
@@ -72,8 +72,9 @@ $search_size: 300px;
   z-index: 5;
     cursor: pointer;
     display: flex;
+    align-items: center;
     width: 95%;
-    height: 22%;
+    height: 70px;
     padding: 0.3rem 1rem;
     flex-shrink: 0;
     background: rgba(132, 197, 230, 0.14);
@@ -155,6 +156,11 @@ $search_size: 300px;
     /* Note: backdrop-filter has minimal browser support */
 
     border-radius: 10px;
+}
+
+.emoji{
+  position: absolute;
+  bottom: 42px;
 }
 
 .chat_profiles_container{

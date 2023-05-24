@@ -16,11 +16,22 @@ import { RoomType, messageType, searchUserType } from '@/types/userType';
 import useSocket from '@/hooks/useSocket';
 import useRefresh from '@/hooks/useRefresh';
 import { ToastContainer } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 import { sendErrorToast} from '@/utils/toast'
 function timeout(delay: number) {
     return new Promise(res => setTimeout(res, delay));
 }
+
+import dynamic from 'next/dynamic';
+import { EmojiClickData } from 'emoji-picker-react';
+
+const EmojiPicker = dynamic(
+  () => {
+    return import('emoji-picker-react');
+  },
+  { ssr: false }
+);
 
 const HomePage = () => {
 
@@ -36,6 +47,8 @@ const HomePage = () => {
     const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null);
     const [isConnected,setConnected]    = useState(false)
     const [roomMessages,setRoomMessages] = useState<messageType[]>(selectedRoom?.messages ?? [])
+    const [emojis,setEmoji] = useState(false)
+    
     const messageRef = useRef<HTMLTextAreaElement>(null)
     //Message ref map
     const socket = useSocket()
@@ -234,6 +247,7 @@ const HomePage = () => {
             let message:messageType = {} as messageType;
             message.message = messageRef.current?.value as String;
             messageRef.current!.value = '';
+            setEmoji(false);
             message.date = new Date();
             message.sender = user?.username;
             message.receiver = selectedRoom?.to.username;
@@ -249,6 +263,16 @@ const HomePage = () => {
             setRoomMessages([...selectedRoom.messages])
         }
     }
+    const onEmojiClick = (emojiData: EmojiClickData, event: MouseEvent) => {
+        
+        const cursor = messageRef.current?.selectionStart;
+        const text = messageRef.current?.value.slice(0, cursor) + emojiData.emoji + messageRef.current?.value.slice(cursor);
+        if(messageRef.current?.focus){
+            messageRef.current.value = text;
+            messageRef.current.setSelectionRange(cursor! + emojiData.emoji.length, cursor! + emojiData.emoji.length);
+        }
+        
+    };
     
 
     const blue = {
@@ -320,7 +344,7 @@ const HomePage = () => {
             />
         <main className={`h-screen flex flex-col  px-32 py-16 justify-center items-center max-lg:flex-col max-lg:px-0 max-sm:px-0 max-xl:px-0 max-sm:py-0  max-xl:py-5`}>
             {/* <div className="logo"><Image src={logo} alt="" /></div> */}
-            {!isConnected?<div className='flex gap-5 text-lg text-cyan-800'>Trying to reconnect <CircularProgress/></div>:<div className={'overflow-hidden flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:rounded-none max-sm:w-screen max-sm:h-screen'}>
+            {!isConnected?<div className='flex gap-5 text-lg text-cyan-800'>Trying to reconnect <CircularProgress/></div>:<div className={' flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:rounded-none max-sm:w-screen max-sm:h-screen'}>
                 {profileView ? <Transition  /*Need to fix transition*/
                     className={styles.section__1__profile}
                     enter="transition-opacity duration-75"
@@ -444,8 +468,33 @@ const HomePage = () => {
                             }
                         </div>
                         <div className={styles.chat_send}>
-                            <EmojiEmotions sx={{ color: "rgba(44, 153, 221, 0.6)", cursor: "pointer" }} />
+                            <div style={{position:"relative"}}>
+                                <EmojiEmotions onClick={()=>{
+                                    setEmoji(!emojis)
+                                }} sx={{ color: "rgba(44, 153, 221, 0.6)", cursor: "pointer" }} />
+                                <div className={styles.emoji}>
+                                    {emojis? <EmojiPicker previewConfig={{showPreview:false}}  onEmojiClick={(emoji: EmojiClickData, event: MouseEvent)=>{
+                                        onEmojiClick(emoji, event)}} />: <></>}
+                                </div>
+                            </div>
                             <StyledTextarea
+                            onKeyDown={(e)=>{
+                                if(e.key === "Enter" && !e.ctrlKey){
+                                    sendMessage()
+                                }
+                                if(e.key === "Enter" && e.ctrlKey){
+                                    if(messageRef.current){
+                                        const end = messageRef.current.selectionEnd
+                                        messageRef.current.value += "\n"
+                                    }
+                                }
+                                
+                            }}
+                            autoFocus
+                            onBlur={()=>{
+                                console.log("BLURR")
+                                    messageRef.current?.focus()
+                            }}
                                 className={styles.styled_textarea}
                                 maxRows={3}
                                 placeholder="Type a message"
