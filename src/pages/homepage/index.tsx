@@ -117,6 +117,13 @@ const HomePage = () => {
     
     useEffect(()=>{
         if(socket && rooms.length > 0){
+            socket.on('addRoom',(room:RoomType)=>{
+                console.log("New Room added")
+                console.log(room)
+                setRooms([...rooms,room])
+                joinRoom([room.id])
+            })
+            
             socket.on('recieveMessage',(message: messageType)=>{  //Non reactive values used inside
                 console.log("Rooms" )
                 console.log( rooms)
@@ -311,9 +318,9 @@ const HomePage = () => {
             pauseOnHover
             theme="light"
             />
-        <main className={`h-screen flex flex-col  px-32 py-16 justify-center items-center max-lg:flex-col max-lg:px-0 max-sm:px-0 max-xl:px-0 max-xl:py-5`}>
+        <main className={`h-screen flex flex-col  px-32 py-16 justify-center items-center max-lg:flex-col max-lg:px-0 max-sm:px-0 max-xl:px-0 max-sm:py-0  max-xl:py-5`}>
             {/* <div className="logo"><Image src={logo} alt="" /></div> */}
-            {!isConnected?<div className='flex gap-5 text-lg text-cyan-800'>Network Error, Trying to reconnect <CircularProgress/></div>:<div className={'overflow-hidden flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:w-11/12'}>
+            {!isConnected?<div className='flex gap-5 text-lg text-cyan-800'>Trying to reconnect <CircularProgress/></div>:<div className={'overflow-hidden flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:rounded-none max-sm:w-screen max-sm:h-screen'}>
                 {profileView ? <Transition  /*Need to fix transition*/
                     className={styles.section__1__profile}
                     enter="transition-opacity duration-75"
@@ -324,7 +331,7 @@ const HomePage = () => {
                     leaveTo="opacity-0" show={profileView}>
                     <Profile setProfileView={setProfileView} />
                 </Transition> :
-                    <div className={styles.section__1}>
+                    <div style={closeMobile?{}:{display:"inherit"} } className={styles.section__1}>
                         <div className={styles.profile_bar}>
                             <Image className={styles.profile} alt='' onClick={async () => {
                                 setProfileView(!profileView)

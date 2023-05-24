@@ -387,15 +387,21 @@ $search_size: 300px;
 
 @media(max-width:1024px){
   .section__1{
+    display: none;
     width: 90%;
   }
   .section__2{
     display: none;
     width: 100%;
     height: 100%;
-    background: rgba(133, 202, 223, 0.7);
     position: absolute;
     z-index: 10;
+  }
+
+
+  .chat_body{
+    width: 95%;
+    height: 85%;
   }
 
   .section__1__profile{
