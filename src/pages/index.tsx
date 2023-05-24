@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { sendErrorToast, sendPromiseToast } from '@/utils/toast'
 import { AuthContext } from '@/context/AuthContext'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import Head from 'next/head';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -79,6 +80,11 @@ export default function Home() {
   }
 
   return (
+    <>
+          <Head>
+        <title>Zenith Chat</title>
+        <meta property="og:title" content="My page title" key="title" />
+      </Head>
     <main>
       {/* <Navbar />       */}
       <ToastContainer
@@ -216,5 +222,6 @@ export default function Home() {
         </>}
       </div>
     </main>
+    </>
   )
 }
