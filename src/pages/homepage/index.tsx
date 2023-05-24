@@ -196,9 +196,13 @@ const HomePage = () => {
                         setCloseMobile(true);
                         setRoomMessages(foundRoom.messages)
                     }
+                    return
                 }
-                //Check if already added is done from backend
-                setRooms([...rooms,response])
+                const foundRoom = response as RoomType;
+                setRooms([...rooms,foundRoom])
+                setSelectedRoom(foundRoom)
+                setCloseMobile(true);
+                setRoomMessages(foundRoom.messages)
             })
         }
     }
