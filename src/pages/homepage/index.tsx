@@ -491,10 +491,6 @@ const HomePage = () => {
                                 
                             }}
                             autoFocus
-                            onBlur={()=>{
-                                console.log("BLURR")
-                                    messageRef.current?.focus()
-                            }}
                                 className={styles.styled_textarea}
                                 maxRows={3}
                                 placeholder="Type a message"
