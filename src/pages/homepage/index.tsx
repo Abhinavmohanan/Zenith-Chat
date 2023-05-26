@@ -490,7 +490,6 @@ const HomePage = () => {
                                 }
                                 
                             }}
-                            autoFocus
                                 className={styles.styled_textarea}
                                 maxRows={3}
                                 placeholder="Type a message"
