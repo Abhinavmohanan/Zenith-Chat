@@ -205,7 +205,7 @@ $search_size: 300px;
     background: rgba(132, 197, 230, 0.8);
   }
   
-.chat_profile{
+.chat_profile,.chat_profile_selected{
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -221,6 +221,10 @@ $search_size: 300px;
     /* Note: backdrop-filter has minimal browser support */
 
     border-radius: 10px;
+}
+
+.chat_profile_selected{
+    background: rgba(128, 211, 252, 0.4);
 }
 
 .chat__desc{

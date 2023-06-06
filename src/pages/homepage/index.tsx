@@ -47,7 +47,7 @@ const HomePage = () => {
     const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null);
     const [isConnected,setConnected]    = useState(false)
     const [roomMessages,setRoomMessages] = useState<messageType[]>(selectedRoom?.messages ?? [])
-    const [emojis,setEmoji] = useState(false)
+    const [emojis,setEmoji] = useState(false) 
     
     const messageRef = useRef<HTMLTextAreaElement>(null)
     //Message ref map
@@ -104,8 +104,13 @@ const HomePage = () => {
         const getRooms = async()=>{
             try{
                 const response = await axiosJWT.get('/getRooms')
-                console.log(response.data)
-                setRooms(response.data)
+                const rooms = response.data as RoomType[]
+                rooms.sort((a,b)=>{
+                    return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+                })
+                console.log("ROOMS ARE:")
+                console.log(rooms)
+                setRooms(rooms)
                 const room = response.data.map((room : RoomType)=>{
                     return room.id
                 })
@@ -133,24 +138,27 @@ const HomePage = () => {
             socket.on('addRoom',(room:RoomType)=>{
                 console.log("New Room added")
                 console.log(room)
-                setRooms([...rooms,room])
+                setRooms([room,...rooms])
                 joinRoom([room.id])
             })
             
             socket.on('recieveMessage',(message: messageType)=>{  //Non reactive values used inside
                 console.log("Rooms" )
-                console.log( rooms)
+                console.log(rooms)
                 console.log("Recieved Message : " + message.message)
                 const foundRoom = rooms.find((room:RoomType)=>room._id === message.roomid)
+                if(foundRoom){
+                    const index = rooms.indexOf(foundRoom)
+                    rooms.splice(index,1)
+                    foundRoom.messages.push(message)
+                    setRooms([foundRoom,...rooms])
+                }
                 console.log("Selected room " )
                 console.log( selectedRoom) 
                 console.log("Found room " )
                 console.log( foundRoom)
                 if(foundRoom && selectedRoom && foundRoom?._id == selectedRoom?._id){
                     addMessage(message)
-                }
-                else{
-                    foundRoom?.messages.push(message)
                 }
         })
         }
@@ -252,17 +260,20 @@ const HomePage = () => {
             message.sender = user?.username;
             message.receiver = selectedRoom?.to.username;
             console.log("Sending Message : " + message.message)
+            selectedRoom?.messages.push(message)
             addMessage(message)
+            rooms.splice(rooms.indexOf(selectedRoom!),1)
+            setRooms([selectedRoom!,...rooms])
             socket.emit('sendMessage', selectedRoom?.id, message);
         }
     }
 
     const addMessage = (message: messageType)=>{
-        selectedRoom?.messages.push(message)
         if(selectedRoom?.messages){
             setRoomMessages([...selectedRoom.messages])
         }
     }
+
     const onEmojiClick = (emojiData: EmojiClickData, event: MouseEvent) => {
         
         const cursor = messageRef.current?.selectionStart;
@@ -342,9 +353,10 @@ const HomePage = () => {
             pauseOnHover
             theme="light"
             />
-        <main className={`h-screen flex flex-col  px-32 py-16 justify-center items-center max-lg:flex-col max-lg:px-0 max-sm:px-0 max-xl:px-0 max-sm:py-0  max-xl:py-5`}>
+        <main className={`h-screen flex flex-col justify-center items-center max-lg:flex-col max-lg:px-0 max-sm:px-0 max-xl:px-0 max-sm:py-0  max-xl:py-5`}>
             {/* <div className="logo"><Image src={logo} alt="" /></div> */}
-            {!isConnected?<div className='flex gap-5 text-lg text-cyan-800'>Trying to reconnect <CircularProgress/></div>:<div className={' flex items-center justify-around w-11/12 h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:rounded-none max-sm:w-screen max-sm:h-screen'}>
+            {!isConnected?<div className='flex gap-5 text-lg text-cyan-800'>Trying to reconnect <CircularProgress/></div>:
+            <div className={' flex items-center justify-around w-full h-full bg-gray-100 rounded-2xl bg-clip-padding backdrop-filter backdrop-blur-2xl bg-opacity-30 border border-blue-200 max-lg:w-5/6 max-sm:rounded-none max-sm:w-screen max-sm:h-screen'}>
                 {profileView ? <Transition  /*Need to fix transition*/
                     className={styles.section__1__profile}
                     enter="transition-opacity duration-75"
@@ -423,13 +435,13 @@ const HomePage = () => {
                                     <div className={styles.chat_empty}>
                                         Search to start a chat 
                                     </div>
-                                :rooms.map((room)=>{
+                                :rooms.reverse().map((room)=>{
                                     return (
                                         <div onClick={()=>{
                                             setSelectedRoom(room)
                                             setCloseMobile(true);
                                             setRoomMessages(room.messages)
-                                            }} className={styles.chat_profile}>
+                                            }} className={(selectedRoom?._id == room._id)? styles.chat_profile_selected : styles.chat_profile}>
                                             <Image className={styles.profile} alt='' src={profile} />
                                             <div className={styles.chat__desc}>
                                                 <div className={styles.chat__heading}>{room.to.name}</div>
@@ -501,7 +513,7 @@ const HomePage = () => {
                         </div>
                     </div>
                     </>:<div className='text-black'>
-                            Zenith Chat - A Chat App for Zenith Students
+                            Zenith Chat - A Chat App for Gen Z
                     </div>}
                 </div>
             </div>}

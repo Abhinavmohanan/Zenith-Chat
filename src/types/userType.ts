@@ -28,5 +28,5 @@ export type messageType = {
   roomid: String,
 }
 
-export type RoomType = {_id:String,id:String,name:String | null,type:String,to:{name:String,username:String},messages:[messageType]}
+export type RoomType = {_id:String,id:String,name:String | null,type:String,to:{name:String,username:String},messages:[messageType],updatedAt:Date,}
 
