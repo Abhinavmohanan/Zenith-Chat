@@ -134,7 +134,7 @@ const HomePage = () => {
 
     
     useEffect(()=>{
-        if(socket && rooms.length > 0){
+        if(socket){
             socket.on('addRoom',(room:RoomType)=>{
                 console.log("New Room added")
                 console.log(room)
