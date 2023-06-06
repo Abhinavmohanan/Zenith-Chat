@@ -439,7 +439,9 @@ const HomePage = () => {
                                     return (
                                         <div onClick={()=>{
                                             setSelectedRoom(room)
-                                            setCloseMobile(true);
+                                            if(window.innerWidth < 1024){
+                                                setCloseMobile(true);
+                                            }
                                             setRoomMessages(room.messages)
                                             }} className={(selectedRoom?._id == room._id)? styles.chat_profile_selected : styles.chat_profile}>
                                             <Image className={styles.profile} alt='' src={profile} />
