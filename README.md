@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Screenshot 2023-07-28 183733](https://github.com/Abhinavmohanan/Zenith-Chat/assets/97299219/82cdfc54-f2ae-4e3b-a199-2359a53c1995)This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -40,3 +40,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+Screenshots
+![Screenshot 2023-07-28 183733](https://github.com/Abhinavmohanan/Zenith-Chat/assets/97299219/20b4f68d-7569-4e6e-b79e-919bba699308)
+![Screenshot 2023-07-28 184001](https://github.com/Abhinavmohanan/Zenith-Chat/assets/97299219/d3940463-356f-4043-af5b-7d4ac4e913a7)
+![Screenshot 2023-07-28 184015](https://github.com/Abhinavmohanan/Zenith-Chat/assets/97299219/000991ea-3613-48ca-80da-e4f66d81aa3f)
+
