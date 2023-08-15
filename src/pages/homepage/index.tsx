@@ -405,7 +405,7 @@ const HomePage = () => {
                                     <div className={styles.chat_empty}>
                                         Search to start a chat 
                                     </div>
-                                :rooms.reverse().map((room)=>{
+                                :rooms.map((room)=>{
                                     return (
                                         <div onClick={()=>{
                                             setSelectedRoom(room)
