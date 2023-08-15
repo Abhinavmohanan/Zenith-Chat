@@ -1,30 +1,27 @@
-import logo from '../../assets/images/logo.png'
-import Image from 'next/image';
-import profile from '../../assets/images/profile.jpg'
-import TextareaAutosize from '@mui/base/TextareaAutosize';
-import { styled } from '@mui/system';
-import styles from './homepage.module.scss'
-import { CircularProgress, FormControl, InputAdornment, OutlinedInput } from '@mui/material';
-import {  Close, EmojiEmotions, Search, Send } from '@mui/icons-material';
-import Input from '@mui/material/Input';
-import { useContext, useEffect, useRef, useState } from 'react';
-import { Transition } from '@headlessui/react'
 import Profile from '@/components/profile';
 import { AuthContext } from '@/context/AuthContext';
 import useAxiosPrivate from '@/hooks/useAxiosPrivate';
-import { RoomType, messageType, searchUserType } from '@/types/userType';
-import useSocket from '@/hooks/useSocket';
 import useRefresh from '@/hooks/useRefresh';
+import useSocket from '@/hooks/useSocket';
+import { RoomType, messageType, searchUserType } from '@/types/userType';
+import { Transition } from '@headlessui/react';
+import { Close, EmojiEmotions, Search, Send } from '@mui/icons-material';
+import { CircularProgress, FormControl, InputAdornment } from '@mui/material';
+import Input from '@mui/material/Input';
+import Image from 'next/image';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
+import profile from '../../assets/images/profile.jpg';
+import styles from './homepage.module.scss';
 
+import { sendErrorToast } from '@/utils/toast';
 import 'react-toastify/dist/ReactToastify.css';
-import { sendErrorToast} from '@/utils/toast'
 function timeout(delay: number) {
     return new Promise(res => setTimeout(res, delay));
 }
 
-import dynamic from 'next/dynamic';
 import { EmojiClickData } from 'emoji-picker-react';
+import dynamic from 'next/dynamic';
 
 const EmojiPicker = dynamic(
   () => {
@@ -245,10 +242,15 @@ const HomePage = () => {
     }
 
     const sendMessage = ()=>{
-        if(messageRef.current?.value == '') {
+        //Reset height
+        messageRef.current!.style.height = '30px';
+        if(messageRef.current?.value?.trim().length === 0) {
             sendErrorToast("Message cannot be empty")
+            //clear
+            messageRef.current!.value = '';
             return;
         }
+
         if(socket){
             if(socket.disconnected) socket.connect();
             console.log("Connecting" + socket.connected)
@@ -308,38 +310,6 @@ const HomePage = () => {
         900: '#24292f',
     };
     const searchRef = useRef<null | HTMLInputElement>(null);
-    const StyledTextarea = styled(TextareaAutosize)(
-        ({ theme }) => `
-        flex:1;
-        margin: 0 1rem;
-        resize: none;
-        box-sizing: border-box;
-        width:50%;
-        font-size:14px;
-        padding:5px 10px 5px 10px;
-        color:black;
-        height:10px;
-        background: rgba(255, 255, 255, 0.45);
-        border: 1px solid rgba(255, 255, 255, 0.46);
-        backdrop-filter: blur(7.4px);
-        /* Note: backdrop-filter has minimal browser support */
-        
-        border-radius: 10px;
-        &:hover {
-            border:none
-        }
-      
-        &:focus {
-          border:none;
-          box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? blue[500] : blue[200]};
-        }
-      
-        // firefox
-        &:focus-visible {
-          outline: 0;
-        }
-      `,
-    );
     return (<>
           <ToastContainer
             position="top-right"
@@ -491,7 +461,21 @@ const HomePage = () => {
                                         onEmojiClick(emoji, event)}} />: <></>}
                                 </div>
                             </div>
-                            <StyledTextarea
+                            <textarea
+                            style={{height:"30px"}}
+                            onChange={(e)=>{
+                                    //Get no. of line breaks
+                                    const lineBreaks = (e.target.value.match(/\n/g) || []).length;
+                                    //Set height of textarea
+                                    if(lineBreaks < 3){
+                                        messageRef.current!.style.height = `${lineBreaks * 20 + 30}px`
+                                    }
+                                    if(messageRef.current?.value?.trim().length === 0){
+                                        messageRef.current!.style.height = `30px`
+                                        messageRef.current.value=''
+                                    }
+                                  
+                            }}      
                             onKeyDown={(e)=>{
                                 if(e.key === "Enter" && !e.ctrlKey){
                                     sendMessage()
@@ -505,12 +489,14 @@ const HomePage = () => {
                                 
                             }}
                                 className={styles.styled_textarea}
-                                maxRows={3}
+                                rows={3}
                                 placeholder="Type a message"
                                 ref = {messageRef}
                             />
                             <Send onClick={()=>{
                                 sendMessage()
+                                //Clear height
+
                             }} sx={{ color: "rgba(44, 153, 221, 0.5)", cursor: "pointer" }} />
                         </div>
                     </div>

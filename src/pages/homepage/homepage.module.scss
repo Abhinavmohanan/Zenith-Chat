@@ -329,8 +329,39 @@ $search_size: 300px;
     background: rgba(132, 197, 230, 0.8);
   }
 
+  .styled_textarea{
+    flex:1;
+    margin: 0 1rem;
+    resize: none;
+    box-sizing: border-box;
+    width:50%;
+    font-size:14px;
+    padding:5px 10px 5px 10px;
+    color:black;
+    height:25px;
+    background: rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.46);
+    backdrop-filter: blur(7.4px);
+    /* Note: backdrop-filter has minimal browser support */
+    
+    border-radius: 10px;
+    &:hover {
+        border:none
+    }
+  
+    &:focus {
+      border:none;
+      box-shadow: 0 0 0 3px rgba(132, 197, 230, 0.8);
+    }
+  
+    // firefox
+    &:focus-visible {
+      outline: 0;
+    }
+  }
+
   .styled_textarea::-webkit-scrollbar {
-    width: 5px;
+    display: none;
   }
 
   .styled_textarea::-webkit-scrollbar-track {
